@@ -4,16 +4,18 @@ const oPlayer = 'O';
 const aiPlayer = 'X'
 const winCombos = [
     
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
+     [0, 1, 2],
+     [3, 4, 5],
+     [6, 7, 8],
     
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
+     [0, 3, 6],
+     [1, 4, 7],
+     [2, 5, 8],
     
-    [0, 4, 8],
-    [6, 4, 2]
+     [0, 4, 8],
+     [2, 4, 6]
+
+   
 ]
 
 const cells = document.querySelectorAll('.cell');
@@ -70,7 +72,7 @@ function gameOver(gameWon) {
         cells[i].removeEventListener('click', turnClick, false);
     }
 
-    declareWinner(gameWon.player == oPlayer ? "You win!" : "You lose.");
+    declareWinner(gameWon.player == oPlayer ? "Nyertél!" : "Vesztettél");
 }
 
 function declareWinner(whoWin) {
@@ -92,7 +94,7 @@ function checkTie() {
             cells[i].style.backgroundColor = "pink";
             cells[i].removeEventListener('click', turnClick, false);
         }
-        declareWinner("Tie Game!")
+        declareWinner("Döntetlen játék!")
         return true;
     }
     return false;
@@ -147,37 +149,4 @@ function minimax(newBoard, player) {
     }
 
     return moves[bestMove];
-}
-
-const docStyle = document.documentElement.style
-const aElem = document.querySelector('a')
-const boundingClientRect = aElem.getBoundingClientRect()
-
-aElem.onmousemove = function (e) {
-
-    const x = e.clientX - boundingClientRect.left
-    const y = e.clientY - boundingClientRect.top
-
-    const xc = boundingClientRect.width / 2
-    const yc = boundingClientRect.height / 2
-
-    const dx = x - xc
-    const dy = y - yc
-
-    docStyle.setProperty('--rx', `${dy / -1}deg`)
-    docStyle.setProperty('--ry', `${dx / 10}deg`)
-}
-
-aElem.onmouseleave = function (e) {
-    docStyle.setProperty('--ty', '0')
-    docStyle.setProperty('--rx', '0')
-    docStyle.setProperty('--ry', '0')
-}
-
-aElem.onmousedown = function (e) {
-    docStyle.setProperty('--tz', '-25px')
-}
-
-document.body.onmouseup = function (e) {
-    docStyle.setProperty('--tz', '-12px')
 }
